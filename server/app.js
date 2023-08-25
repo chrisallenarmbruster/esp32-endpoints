@@ -1,5 +1,12 @@
 const express = require("express")
 const app = express()
+// const server = require("http").createServer(app)
+const { createServer } = require("http")
+const { Server } = require("socket.io")
+const httpServer = createServer(app)
+const io = new Server(httpServer, { cors: { origin: "*" } })
+
+// const io = require("socket.io")(server)
 const path = require("path")
 const volleyball = require("volleyball")
 const { Device, Event } = require("./db")
@@ -20,7 +27,8 @@ app.use("/api", require("./api"))
 app.post("/", async (req, res, next) => {
   try {
     console.log("Received Payload:\n", req.body)
-    await Event.create({ ...req.body })
+    const event = await Event.create({ ...req.body })
+    io.emit("device event", event)
     res.status(201).send("OK")
   } catch (err) {
     next(err)
@@ -36,4 +44,11 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || "Internal server error")
 })
 
-module.exports = app
+io.on("connection", (socket) => {
+  console.log("user connected")
+  socket.on("disconnect", function () {
+    console.log("user disconnected")
+  })
+})
+
+module.exports = httpServer

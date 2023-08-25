@@ -2,9 +2,11 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import thunk from "redux-thunk"
 import logger from "redux-logger"
 import deviceAll from "./deviceAll"
+import deviceCurrentValues from "./deviceCurrentValues"
 
 const reducer = combineReducers({
   deviceAll,
+  deviceCurrentValues,
 })
 
 // Compose enhancers with trace option enabled

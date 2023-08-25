@@ -1,22 +1,61 @@
 import React, { Component, Fragment } from "react"
+import { socket } from "../socket"
 // import NavBar from './Navbar';
 import { Routes, Route, Navigate } from "react-router-dom"
 import { connect } from "react-redux"
 import { setDevices } from "../store/deviceAll"
-import Home from "./Home"
+import Dashboard from "./Dashboard"
+import { updateDeviceCurrentValue } from "../store/deviceCurrentValues"
+import NavBar from "./NavBar"
+import DeviceList from "./DeviceList"
+import About from "./About"
 
 class App extends Component {
-  componentDidMount() {
-    this.props.setDevices()
+  constructor() {
+    super()
+    this.state = {
+      isConnected: socket.connected,
+      deviceEvents: [],
+    }
+  }
+
+  onConnect() {
+    this.setState({ isConnected: true })
+  }
+
+  onDisconnect() {
+    this.setState({ isConnected: false })
+  }
+
+  onDeviceEvent(value) {
+    this.setState({ deviceEvents: [...this.state.deviceEvents, value] })
+    this.props.updateDeviceCurrentValue(value)
+  }
+
+  async componentDidMount() {
+    await this.props.setDevices()
+
+    socket.on("connect", this.onConnect.bind(this))
+    socket.on("disconnect", this.onDisconnect.bind(this))
+    socket.on("device event", this.onDeviceEvent.bind(this))
+  }
+
+  componentWillUnmount() {
+    socket.off("connect", this.onConnect.bind(this))
+    socket.off("disconnect", this.onDisconnect.bind(this))
+    socket.off("foo", this.onDeviceEvent.bind(this))
   }
 
   render() {
     return (
       <Fragment>
-        Stackathon
+        <NavBar />
         <Fragment>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/devices" element={<DeviceList />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </Fragment>
       </Fragment>
@@ -31,6 +70,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setDevices: () => dispatch(setDevices()),
+    updateDeviceCurrentValue: (value) =>
+      dispatch(updateDeviceCurrentValue(value)),
   }
 }
 
