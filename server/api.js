@@ -17,16 +17,6 @@ app.get("/devices", async (req, res, next) => {
 
 app.get("/devices/:id", async (req, res, next) => {
   try {
-    // const device = await Device.findByPk(req.params.id, {
-    //   include: [
-    //     {
-    //       model: Event,
-    //       as: "events",
-    //       attributes: ["id", "deviceId", "event", "property", "floatvalue"],
-    //     },
-    //   ],
-    //   order: [[Event, "time", "DESC"]],
-    // })
     const device = await Device.findByPk(req.params.id, {
       include: [
         {
@@ -36,13 +26,42 @@ app.get("/devices/:id", async (req, res, next) => {
     })
     const events = await Event.findAll({
       where: { deviceId: req.params.id },
-      attributes: ["event", "property", "value", "floatvalue", "time"],
+      attributes: [
+        "id",
+        "event",
+        "ip",
+        "property",
+        "value",
+        "floatvalue",
+        "time",
+      ],
       order: [["time", "DESC"]],
-      limit: 100,
+      limit: 240,
     })
-    const result = { ...device.dataValues, events }
+    res.send({ ...device.dataValues, events })
+  } catch (err) {
+    next(err)
+  }
+})
 
-    res.send(result)
+app.get("/events", async (req, res, next) => {
+  try {
+    const events = await Event.findAll({
+      attributes: [
+        "id",
+        "deviceId",
+        "event",
+        "ip",
+        "property",
+        "value",
+        "floatvalue",
+        "time",
+      ],
+      include: [{ model: Device, include: [{ model: DeviceConfig }] }],
+      order: [["time", "DESC"]],
+      limit: 240,
+    })
+    res.send(events)
   } catch (err) {
     next(err)
   }

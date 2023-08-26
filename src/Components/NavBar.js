@@ -2,7 +2,6 @@ import React from "react"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
-import NavDropdown from "react-bootstrap/NavDropdown"
 
 function NavBar() {
   return (
@@ -15,7 +14,7 @@ function NavBar() {
     >
       <Container>
         <Navbar.Brand href="#/" className="text-light">
-          IoT Dashboard
+          IoT Manager
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
@@ -25,6 +24,9 @@ function NavBar() {
           <Nav className="me-auto text-light">
             <Nav.Link href="#devices" className="text-light">
               Devices
+            </Nav.Link>
+            <Nav.Link href="#/events" className="text-light">
+              Events
             </Nav.Link>
             <Nav.Link href="#/dashboard" className="text-light">
               Dashboard

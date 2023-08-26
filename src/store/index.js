@@ -3,10 +3,14 @@ import thunk from "redux-thunk"
 import logger from "redux-logger"
 import deviceAll from "./deviceAll"
 import deviceCurrentValues from "./deviceCurrentValues"
+import deviceSingle from "./deviceSingle"
+import eventAll from "./eventAll"
 
 const reducer = combineReducers({
   deviceAll,
   deviceCurrentValues,
+  deviceSingle,
+  eventAll,
 })
 
 // Compose enhancers with trace option enabled

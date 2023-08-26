@@ -9,6 +9,8 @@ import { updateDeviceCurrentValue } from "../store/deviceCurrentValues"
 import NavBar from "./NavBar"
 import DeviceList from "./DeviceList"
 import About from "./About"
+import DeviceSingle from "./DeviceSingle"
+import EventList from "./EventList"
 
 class App extends Component {
   constructor() {
@@ -55,6 +57,8 @@ class App extends Component {
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/devices" element={<DeviceList />} />
+            <Route path="/devices/:id" element={<DeviceSingle />} />
+            <Route path="/events" element={<EventList />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </Fragment>
