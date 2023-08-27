@@ -9,7 +9,7 @@ const DeviceCard = (props) => {
   return (
     <Link to={`/devices/${props.device.id}`} n className="text-decoration-none">
       <Card
-        className="h-100 shadow bg-primary text-white p-2"
+        className="h-100\ bg-info text-dark p-2"
         title={`${props.device.model} | MAC: ${props.device.mac} ${
           props.deviceCurrentValues.length > 0
             ? `| IP: ${props.deviceCurrentValues[0]?.ip}`

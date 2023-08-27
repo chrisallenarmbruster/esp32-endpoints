@@ -11,6 +11,7 @@ import DeviceList from "./DeviceList"
 import About from "./About"
 import DeviceSingle from "./DeviceSingle"
 import EventList from "./EventList"
+import Home from "./Home"
 
 class App extends Component {
   constructor() {
@@ -54,7 +55,7 @@ class App extends Component {
         <NavBar />
         <Fragment>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/devices" element={<DeviceList />} />
             <Route path="/devices/:id" element={<DeviceSingle />} />

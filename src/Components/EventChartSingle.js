@@ -57,14 +57,35 @@ export class EventChartSingle extends Component {
         },
       },
       scales: {
+        x: {
+          grid: {
+            color: "#555555",
+          },
+          border: {
+            color: "#555555",
+          },
+        },
         y: {
+          border: {
+            color: "#555555",
+          },
+          grid: {
+            color: "#98999A",
+          },
+          ticks: {
+            font: {
+              size: 16,
+            },
+            color: "#0DCAF0",
+          },
           min: 65,
           title: {
             display: true,
             text: "° Fahrenheit",
             font: {
-              size: 16,
+              size: 18,
             },
+            color: "#0DCAF0",
           },
         },
       },
@@ -84,7 +105,7 @@ export class EventChartSingle extends Component {
           data: this.props.device?.events
             ?.reverse()
             .map((event) => event.value),
-          borderColor: "rgb(255, 99, 132)",
+          borderColor: "#0DCAF0",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
         },
       ],
@@ -93,7 +114,11 @@ export class EventChartSingle extends Component {
     return (
       <>
         {" "}
-        <Button className="ms-3" variant="primary" onClick={this.handleShow}>
+        <Button
+          className="ms-3"
+          variant="outline-info"
+          onClick={this.handleShow}
+        >
           Chart
         </Button>
         <Modal
@@ -102,17 +127,18 @@ export class EventChartSingle extends Component {
           backdrop="static"
           keyboard={false}
           size="lg"
+          className="bg-dark text-light"
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton className="bg-info text-dark">
             <Modal.Title>
               Event Chart ({this.props.device?.deviceconfig?.label} Temperature)
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="bg-dark text-light">
             <Line options={options} data={data} />
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+          <Modal.Footer className="bg-dark text-light">
+            <Button variant="outline-info" onClick={this.handleClose}>
               Close
             </Button>
           </Modal.Footer>
