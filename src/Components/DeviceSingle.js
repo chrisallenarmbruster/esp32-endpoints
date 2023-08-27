@@ -4,6 +4,7 @@ import { setSingleDevice, _clearSingleDevice } from "../store/deviceSingle"
 import { withRouter } from "../utils/withRouter"
 import Container from "react-bootstrap/Container"
 import Table from "react-bootstrap/Table"
+import EventChartSingle from "./EventChartSingle"
 
 export class DeviceSingle extends Component {
   componentDidMount() {
@@ -55,7 +56,9 @@ export class DeviceSingle extends Component {
                 </span>
               </span>
             </div>
-            <h3 className="h3 mt-4">Event Log</h3>
+            <h3 className="h3 mt-4">
+              Event Log <EventChartSingle />
+            </h3>
             <Table className="table table-striped">
               <thead>
                 <tr>
