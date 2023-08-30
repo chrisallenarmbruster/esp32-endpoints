@@ -92,10 +92,10 @@ export class EventChartSingle extends Component {
     }
 
     const labels = this.props.device?.events
-      ?.reverse()
-      .map((event) =>
+      ?.map((event) =>
         new Date(event.time).toLocaleString("en-US", {}).slice(-11)
       )
+      .reverse()
 
     const data = {
       labels,
@@ -103,8 +103,8 @@ export class EventChartSingle extends Component {
         {
           label: "Dataset 1",
           data: this.props.device?.events
-            ?.reverse()
-            .map((event) => event.value),
+            ?.map((event) => event.value)
+            .reverse(),
           borderColor: "#0DCAF0",
           backgroundColor: "rgba(255, 99, 132, 0.5)",
         },

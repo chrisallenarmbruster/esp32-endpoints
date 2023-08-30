@@ -13,11 +13,11 @@ const Home = () => {
         <div className="col-lg-6 mx-auto">
           <p className="fs-5 mb-4">
             The Internet of Things depends on the successful integration of
-            unconventional networked devices and disparate platforms, including
-            device management, IoT gateways, UI dashboards, data analytics and
-            cloud services.{" "}
+            unconventional networked devices and disparate platforms. This
+            includes embedded software, IoT gateways, UI dashboards, data
+            analytics and cloud services.
             <span className="text-info fw-bold mx-1">IoT Manager</span> is my
-            full-stack Javascript implementation for IoT - from sensor to cloud
+            full-stack JavaScript implementation for IoT - from sensor to cloud
             to human. It is a work in progress, but please dive in and explore
             the exciting potential that awaits!
           </p>
